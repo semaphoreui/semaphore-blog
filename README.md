@@ -1,1 +1,1 @@
-# semaphore-blog
+# Semaphore Blog
