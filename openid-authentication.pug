@@ -1,0 +1,49 @@
+p 
+    | Starting from version <a href="https://github.com/semaphoreui/semaphore/releases/tag/v2.8.92">2.8.92</a>, Semaphore supports authentication via OpenID. 
+    | In this article, we will explore how to setup Ansible Semaphore to authenticate users via GitLab.
+
+p
+    | Configuring authentication via OpenID starts with setting up the provider itself, in our case, GitLab.
+
+h3 1. Create an application in GitLab
+
+p To enable authentication through GitLab, you need to create an application in your GitLab account settings.
+
+ol(type='1')
+    li Go to the Applications section in the settings of your GitLab account: <a href="https://gitlab.com/-/profile/applications">https://gitlab.com/-/profile/applications</a>
+    li Fill in the required fields: 
+    ul
+        li <strong>Redirect URL</strong>: <code>http://localhost:3000/api/auth/oidc/gitlab/redirect</code>.
+        li <strong>Scopes</strong>: <code>openid</code>, <code>profile</code>, <code>email</code>.
+    p
+        img(src="/img/post-openid-authentication-1.webp" alt="gitlab app create" style="max-width: 700px;")
+    li After you click <strong>Save application</strong> you will see following screen:
+    img(src="/img/post-openid-authentication-2.webp" alt="gitlab app config" style="max-width: 700px;")
+    li Copy and save the secret key somewhere (it will be needed for configuring Semaphore) and click <strong>Continue</strong>.
+    li Application ready.
+    img(src="/img/post-openid-authentication-3.webp" alt="gitlab app list" style="max-width: 700px;")
+
+h3 2. Add the OpenID settings to the Semaphore's configuration file
+
+p As you know, Semaphore settings are stored in the configuration file (usually <code>config.json</code>) in JSON format.
+
+p We need to add the following settings to it so that Semaphore knows how to use GitLab as an OpenID provider:
+
+pre
+    code
+    |"oidc_providers": {
+    |    "gitlab": {
+    |        "display_name": "GitLab",
+    |        "provider_url": "https://gitlab.com",
+    |        "client_id": "<span style="color: red;">Application ID</span>",
+    |        "client_secret": "<span style="color: red;">Secret</span>",
+    |        "redirect_url": "http://localhost:4000/api/auth/oidc/gitlab/redirect"
+    |    }
+    |}
+
+h3 3. Start Semaphore with OpenID/GitLab authentication
+
+p After you have saved the changes in the configuration file, start or restart Semaphore with the new settings.
+p You will find a new "GitLab" button on the Semaphore login page.
+p
+    img(src="/img/post-openid-authentication-4.webp" alt="semaphore login screen" style="max-width: 400px;")

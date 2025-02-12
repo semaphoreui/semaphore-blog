@@ -1,0 +1,38 @@
+ol(type='1')
+    li.mb-4
+        p Connect to the server where Semaphore will run
+        code ssh user123@server456
+
+    li.mb-4
+        p Switch to root user
+        code sudo -s
+
+    li.mb-4
+        p Update packages
+        code apt update
+
+    li.mb-4
+        p Install snap
+        code apt install snapd 
+
+    li.mb-4
+        p Install Semaphore using snap
+        code snap install semaphore
+
+    li.mb-4
+        p Stop Semaphore service, it is required to manage Semaphore via CLI
+        code snap stop semaphore
+
+    li.mb-4
+        p Add admin user
+        code semaphore user add --admin --login admin --name Admin --email admin@example.com --password 123456
+
+    li.mb-4
+        p Start Semaphore service
+        code snap start semaphore
+
+    li.mb-4
+        p Open Semaphore UI in browser by address <code>http://server456:3000</code>
+
+
+iframe(width='560' height='315' style="max-width: 100%;" src='https://www.youtube.com/embed/KITfIzk6p4Q' title='Installation and removal of Ansible Semaphore' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen)
