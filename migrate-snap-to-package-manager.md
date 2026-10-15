@@ -31,7 +31,7 @@ sudo su -l root <<EOF
 set -x
 snap stop semaphore.semaphored
 cp -rf /root/snap/semaphore/common /home/semaphore
-mv -f /home/semaphore/repositories /tmp/semaphore`
+mv -f /home/semaphore/repositories /tmp/semaphore
 sed -i 's/\/root\/snap\/semaphore\/common\/database.boltdb/\/home\/semaphore\/database.boltdb/' /home/semaphore/config.json
 sed -i 's/\/root\/snap\/semaphore\/common\/repositories/\/tmp\/semaphore/' /home/semaphore/config.json
 adduser --system --group --home /home/semaphore --no-create-home --shell /bin/bash semaphore
